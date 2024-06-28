@@ -11,10 +11,10 @@
 При наличии программной АТС (asterisk и т.п) вы можете написать скрипт, который в момент звонка на телефонный номер техподдержки, берет номер звонящего (caller_id) и посылает get запрос http://<your_ip>:8000/set_call/<integer_phone_number> . 
 Пример на asterisk: 
 Файл extention_custom
-;exten => <support_number>,1,System(<path_to_script.sh>${CALLERID(num)} &)
-;exten => <support_number>,n,Goto(from-queue-exten-only,${EXTEN},1)
+`;exten => <support_number>,1,System(<path_to_script.sh>${CALLERID(num)} &)
+;exten => <support_number>,n,Goto(from-queue-exten-only,${EXTEN},1)`
 Файл скрипта path_to_script.sh:
-wget http://webdhcp.niipp.ru/set_call/$1
+`wget http://webdhcp.niipp.ru/set_call/$1`
 
 Последовательность действий при установке:(ниже, в пункте "Команды" будет приведена последовательность команд)
 1) Склонируйте репозиторий github.com/vikvikst/for_dhcp.git на локальную машину и войдите в каталог for_dhcp
@@ -27,11 +27,12 @@ wget http://webdhcp.niipp.ru/set_call/$1
  cd for_dhcp
  docker pull vikvikst/for_dhcp
  docker run -v $(pwd)/result:/for_dhcp/result --name for_dhcp -d -p 8000:5000 vikvikst/for_dhcp
- 
- ps:
+
  Образ предназначен исключительно для демонстрации.
  Используется монтирование каталога с хоста bind mount и запуск под рутом. Безопасным вариантом было бы создание в docker образе пользователя с заданным id, 
  однако в этом случае пользователю пришлось бы выплнить лишние действия по добавлению нового пользователя с аналогичным id в систему хоста.
+
+ В веб-интерфейсе сайте есть документация пользователя: Меню(иконка справа) -> документация пользователя 
 
 
 
